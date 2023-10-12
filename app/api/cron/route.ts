@@ -71,7 +71,7 @@ export async function GET(request: Request) {
             emailNotifType
           );
           // Get array of user emails
-          const userEmails = updatedProduct.users.map(
+          const userEmails = updatedProduct.users?.map(
             (user: any) => user.email
           );
           // Send email notification
