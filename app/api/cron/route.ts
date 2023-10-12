@@ -34,7 +34,7 @@ export async function GET(request: Request) {
         const updatedPriceHistory = [
           ...currentProduct.priceHistory,
           {
-            price: scrapedProduct.currentPrice,
+            price: scrapedProduct?.currentPrice,
           },
         ];
 
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
         // Update Products in DB
         const updatedProduct = await Product.findOneAndUpdate(
           {
-            url: product.url,
+            url: product?.url,
           },
           product
         );
@@ -62,8 +62,8 @@ export async function GET(request: Request) {
 
         if (emailNotifType && updatedProduct.users.length > 0) {
           const productInfo = {
-            title: updatedProduct.title,
-            url: updatedProduct.url,
+            title: updatedProduct?.title,
+            url: updatedProduct?.url,
           };
           // Construct emailContent
           const emailContent = await generateEmailBody(
@@ -71,7 +71,7 @@ export async function GET(request: Request) {
             emailNotifType
           );
           // Get array of user emails
-          const userEmails = updatedProduct.users.map(
+          const userEmails = updatedProduct.users?.map(
             (user: any) => user.email
           );
           // Send email notification
